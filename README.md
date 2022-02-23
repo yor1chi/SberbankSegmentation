@@ -223,18 +223,17 @@ The 8th cluster represents the customers we almost lost, interesting thing about
 The 10th cluster customers do most rare transaction, and usage of time is the smallest as well.
 
 
-ReadMe Part 2 
+# ReadMe Part 2 
 
 Analysis of bank transactions 
 
-ReadMe
 
-1.	Data Observing
+# 1.	Data Observing
 
 Initially, we were working on loading the datasets and observing them. Research depicts the outliers in transactions dataset called ‘data’. However, to make more precise calculations and analysis we converted the ‘sum’ column to the ‘abs_sum’ column with absolute values for all transactions. As the result, we got a boxplot without outliers based on IQR calculations.
 Clearing such many outliers will lead to the loss of the essence of the entire clustering, so the decision was made to keep everything.
 
-2.	Data cleaning
+# 2.	Data cleaning
 
 2.1.	Missing Values
 
@@ -265,7 +264,7 @@ Types table has invalid data and many duplicates. So, we have decided to drop su
 
 As we mentioned before, we made some cleaning in each dataset. Hence, we created a new version of the ‘data’ dataset without invalid information and duplicates
 
-3.	Exploratory Data Analysis (EDA)
+# 3.	Exploratory Data Analysis (EDA)
 
 This part is essential for research in terms of performing preliminary investigation on data and its features to reveal patterns, detect anomalies, test hypotheses, verify assumptions, etc. 
 We are working on data paired with time
@@ -274,7 +273,7 @@ A further step is removing outliers and observing the previous graph without out
 The graph below represents the abs_sum based on time distribution between targets without outliers, according to the graph target 1 is a bit higher among all 4 times of the day
 Further steps allow removing outliers from average transactions and the number of transactions. So, these graphs give an opportunity to make a conclusion about transactions related to targets(genders)
 
-4.	Feature Engineering
+# 4. Feature Engineering
 
 Feature Engineering produces new features for both supervised and unsupervised learning, with the goal of simplifying and speeding up data transformations while also enhancing model accuracy.
 
@@ -331,7 +330,7 @@ RFM analysis is a technique used to quantitatively rank and group customers base
 4.12.1.	Consists data of counted codes for 0 or for 1, then calculate a probability for both 1 and 0 and find the difference between them. If the value is positive then this code belongs to 1, if the value is negative the code belongs to 0.
 As the result in the data_to_classification dataset, we got the table with all features made in previous steps related to unique users. Also, it could help to make more accurate classification regarding to clients.
 
-5.	Model Selection
+# 5.Model Selection
 
 5.1.	KNN
 
@@ -361,7 +360,7 @@ SVM or Support Vector Machine is a linear model for classification and regressio
 
 This model optimizes the log-loss function using LBFGS or stochastic gradient descent.
 
-6.	Conclusion
+# 6.Conclusion
 
 The best and most precise results were obtained by data_c dataset, which is the merged from classifications and experiments. In addition, ensembles provided the most decent values. Precision, f1_score, recall also have been calculated to identify how does our model works.
 
