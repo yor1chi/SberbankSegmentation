@@ -1,6 +1,6 @@
 # SberbankSegmentation
 Analysis of bank transactions 
-ReadMe
+ReadMe for Part 1 
 # 1.	Data Observing
 
 Initially, we were working on loading the datasets and observing them. Research depicts the outliers in transactions dataset called ‘data’. However, to make more precise calculations and analysis we converted the ‘sum’ column to the ‘abs_sum’ column with absolute values for all transactions. As the result, we got a boxplot without outliers based on IQR calculations.
@@ -223,4 +223,145 @@ The 8th cluster represents the customers we almost lost, interesting thing about
 The 10th cluster customers do most rare transaction, and usage of time is the smallest as well.
 
 
+ReadMe Part 2 
+
+Analysis of bank transactions 
+
+ReadMe
+
+1.	Data Observing
+
+Initially, we were working on loading the datasets and observing them. Research depicts the outliers in transactions dataset called ‘data’. However, to make more precise calculations and analysis we converted the ‘sum’ column to the ‘abs_sum’ column with absolute values for all transactions. As the result, we got a boxplot without outliers based on IQR calculations.
+Clearing such many outliers will lead to the loss of the essence of the entire clustering, so the decision was made to keep everything.
+
+2.	Data cleaning
+
+2.1.	Missing Values
+
+This part is considering missing values if there are any of them. Based on the plot we could conclude that there are no missing values. Hence, it means that data was correctly scrapped.
+
+2.2.	Drop duplicates 
+Here we identified how many of the same records are in the dataset. The answer is 19 duplicates.
+
+2.3.	Data with invalid code/types values
+
+2.3.1.	 Removing rows if their type/code is not found in codes/types tables
+
+If the ‘data’ dataset’s records do not consist of any of type/code from code/type tables they would be deleted
+
+2.3.2.	 Removing rows if the description of their codes/types values are invalid in codes/types tables
+
+The same step with removing but in this case, we were deleting descriptions of codes/types from ‘data’ if they would not be found in the codes/types table
+
+2.3.3.	Due to the types table containing duplicates in the type description we should remove these duplicates and replace invalid types in general dataframe 
+
+Removing duplicates from the types table and replacing the duplicates with unique ones which are the same as duplicates
+
+2.3.4.	Removing duplicates and invalid data from types table
+
+Types table has invalid data and many duplicates. So, we have decided to drop such duplicates in the types table
+
+2.4.	New dataframe with values from types and codes tables
+
+As we mentioned before, we made some cleaning in each dataset. Hence, we created a new version of the ‘data’ dataset without invalid information and duplicates
+
+3.	Exploratory Data Analysis (EDA)
+
+This part is essential for research in terms of performing preliminary investigation on data and its features to reveal patterns, detect anomalies, test hypotheses, verify assumptions, etc. 
+We are working on data paired with time
+The first graph represents abs_sum based on time distribution between targets, as we can see there is almost no difference between targets, despite the outliers.
+A further step is removing outliers and observing the previous graph without outliers
+The graph below represents the abs_sum based on time distribution between targets without outliers, according to the graph target 1 is a bit higher among all 4 times of the day
+Further steps allow removing outliers from average transactions and the number of transactions. So, these graphs give an opportunity to make a conclusion about transactions related to targets(genders)
+
+4.	Feature Engineering
+
+Feature Engineering produces new features for both supervised and unsupervised learning, with the goal of simplifying and speeding up data transformations while also enhancing model accuracy.
+
+4.1.	Absolute sum of transactions (abs_sum) and account balance (sum)
+
+Working on a sum of client’s transactions, creating absolute value for transactions 
+
+4.2.	Number of transactions (n_transactions)
+
+Calculating the number of transactions for each client 
+
+4.3.	Average transaction (average_transaction)
+
+In this stage, we found out the average absolute sum of transactions per client
+
+4.4.	Gender (gender)
+
+Dropped the duplicates and merged them with ‘data’, renamed target to gender
+
+4.5.	Percentage from the total sum of transactions (percentage)
+
+Here we defined the percentage of each client’s transactions from the whole transactions in dataframe
+
+4.6.	Number of transactions for each cluster of code and type
+
+4.6.1.	 Installing required library and its modules
+
+Installing nltk package and stopwords
+
+4.6.2.	 Lists of code and type descriptions for clusterization
+Converting to list type_description and code_description
+
+4.6.3.	 Adding new features which got from description clusterization (cluster <code/type> number)
+The function counts the number of transactions in each related cluster per each client to identify the special clients in further research
+
+4.7.	Time of registration in minutes (time_of_registration) and the difference between transactions in minutes (transaction_frequecy)
+Creating dataframe that consists of datetime and client_id then split date from the time. The next step was creating a time of registration. Finding out transaction frequency of user by calculating time difference between first and last transactions of the client.
+
+4.8.	RFM features - Recency, Frequency, Monetary values
+RFM analysis is a technique used to quantitatively rank and group customers based on the recency, frequency, and monetary total of their recent transactions to identify the best customers and perform targeted marketing campaigns. By calculating RFM we found out recency, frequency, and monetary for each unique client in dataframe.
+
+4.9.	Results of Feature Engineering
+
+4.10.	Type
+
+4.10.1.	type - consists of data of counted types for 0 or for 1, then calculate the probability for both 1 and 0 and find the difference between them. If a value is positive then this type belongs to 1, if the value is negative the type belongs to 0.
+
+4.11.	Codetype
+
+4.11.1.	Multiplication of code and type because it was giving a high score of correlation.
+
+4.12.	Code
+
+4.12.1.	Consists data of counted codes for 0 or for 1, then calculate a probability for both 1 and 0 and find the difference between them. If the value is positive then this code belongs to 1, if the value is negative the code belongs to 0.
+As the result in the data_to_classification dataset, we got the table with all features made in previous steps related to unique users. Also, it could help to make more accurate classification regarding to clients.
+
+5.	Model Selection
+
+5.1.	KNN
+
+Classifier implementing the k-nearest neighbor’s vote. Regarding the Nearest Neighbors algorithms, if it is found that two neighbors, neighbor k+1 and k, have identical distances but different labels, the results will depend on the ordering of the training data.
+
+5.2.	Decision Tree
+
+A decision tree is a flowchart-like structure in which each internal node represents a "test" on an attribute (e.g. whether a coin flip comes up heads or tails), each branch represents the outcome of the test, and each leaf node represents a class label (decision taken after computing all attributes).
+
+5.3.	Random Forest
+
+A random forest is a meta estimator that fits several decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.
+
+5.4.	GradientBoostingClassifier
+
+GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced.
+
+5.5.	AdaBoost
+
+An AdaBoost [1] classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases.
+
+5.6.	SVM
+
+SVM or Support Vector Machine is a linear model for classification and regression problems. It can solve linear and non-linear problems and work well for many practical problems. The idea of SVM is simple: The algorithm creates a line or a hyperplane which separates the data into classes.
+
+5.7.	MLPClassifier
+
+This model optimizes the log-loss function using LBFGS or stochastic gradient descent.
+
+6.	Conclusion
+
+The best and most precise results were obtained by data_c dataset, which is the merged from classifications and experiments. In addition, ensembles provided the most decent values. Precision, f1_score, recall also have been calculated to identify how does our model works.
 
