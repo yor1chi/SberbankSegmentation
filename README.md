@@ -1,4 +1,4 @@
-# SberbankSegmentation
+# SberbankSegmentation Part 1 (Clustering)
 Analysis of bank transactions 
 ReadMe for Part 1 
 # 1.	Data Observing
@@ -223,7 +223,7 @@ The 8th cluster represents the customers we almost lost, interesting thing about
 The 10th cluster customers do most rare transaction, and usage of time is the smallest as well.
 
 
-# ReadMe Part 2 
+# ReadMe Part 2 (Classification)
 
 Analysis of bank transactions 
 
